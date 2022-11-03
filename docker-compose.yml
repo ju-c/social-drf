@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  social-drf:
+    build: .
+    command: python /social-drf/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/social-drf
+    ports:
+      - 8000:8000
+    depends_on:
+      - db-social-drf
+    environment:
+      - "DJANGO_SECRET_KEY=django-insecure-^50i(9+ba0m4yi-@k^nt8%^!oa2%9&0ui%yj4-#2i)1f^pbo^7"
+      - "DJANGO_DEBUG=True"
+      - "ALLOWED_HOSTS=*"
+      - "POSTGRES_NAME=postgres"
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=postgres"
+      - "POSTGRES_HOST=db-social-drf"
+      - "POSTGRES_PORT=5432"
+  db-social-drf:
+    image: postgres:13
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+    ports:
+      - "5400:5432"
+
+volumes:
+  postgres_data:

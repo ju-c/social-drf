@@ -1,0 +1,30 @@
+# virtualenv
+.venv
+venv/
+ENV/
+env/
+Pipfile*
+
+# Django
+db.sqlite3
+*.log
+
+# Media
+media/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+/.local/
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/

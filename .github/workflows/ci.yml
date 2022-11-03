@@ -1,0 +1,58 @@
+name: 🔮 CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    # Docker Hub image
+    runs-on: ubuntu-latest
+    env:
+        DJANGO_SECRET_KEY: thisisasecret
+        DJANGO_DEBUG: True
+         # Environment variables used to create a new PostgreSQL table.
+        POSTGRES_NAME: postgres
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_DB: github_actions
+        POSTGRES_HOST: localhost
+        POSTGRES_PORT: 5432
+
+    services:
+      postgres:
+        # Docker Hub image.
+        image: postgres:latest
+        # Provide the password for postgres.
+        env:
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        # Set health checks to wait until postgres has started.
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - uses: actions/checkout@v3
+    # Performs a clean Python installation.
+    - name: 💂 Install Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: "3.10"
+
+    # Performs a clean installation of all dependencies.
+    - name: 📥 Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    # Run migrations.
+    - name: 🔄 Run migrations
+      run: |
+        python manage.py makemigrations
+        python manage.py migrate
+
+    # Run the tests.
+    - name: 🤹‍ Run Django tests
+      run: python manage.py test
