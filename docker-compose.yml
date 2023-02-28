@@ -20,7 +20,7 @@ services:
       - "POSTGRES_HOST=db-social-drf"
       - "POSTGRES_PORT=5432"
   db-social-drf:
-    image: postgres:13
+    image: postgres:15
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
