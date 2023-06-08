@@ -1,4 +1,4 @@
-FROM python:3.11.3-slim-bullseye
+FROM python:3.11.4-slim-bullseye
 
 # Environment variables
 ENV PIP_DISABLE_PIP_VERSION_CHECK 1
