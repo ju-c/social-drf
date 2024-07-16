@@ -5,8 +5,7 @@ from rest_framework.permissions import BasePermission
 class IsAuthorOrReadOnly(BasePermission):
     """
     Read : anyone
-    Delete : admin only
-    Create, Update : author only
+    Create, Update, Delete : author only
     """
 
     def has_object_permission(self, request, view, obj):
@@ -18,8 +17,7 @@ class IsAuthorOrReadOnly(BasePermission):
 class IsOriginalUserOrReadOnly(BasePermission):
     """
     Read : anyone
-    Delete : admin only
-    Create, Update : original user only
+    Create, Update, Delete : original user only
     """
 
     def has_object_permission(self, request, view, obj):
